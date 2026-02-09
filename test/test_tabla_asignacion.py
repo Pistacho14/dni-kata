@@ -11,7 +11,7 @@ def tablaAsignacion():
 
 def test_getTabla(tabla):
 
-    assert tabla.getTabla() == [
+    assert tabla.getTabla() == (
         "T",
         "R",
         "W",
@@ -35,7 +35,7 @@ def test_getTabla(tabla):
         "C",
         "K",
         "E",
-    ]
+    )
 
 
 def test_getLetra(tabla):
@@ -55,9 +55,7 @@ def test_isLetraPermitida(tabla):
 
 @pytest.mark.parametrize("dni", CASOS_TEST_CORRECTOS)
 def test_calcularLetra_correcta(tabla, dni):
-    numero_dni = dni[:-1]
-    letra = dni[-1]
-    assert tabla.calcularLetra(numero_dni) == letra
+    assert tabla.calcularLetra(dni[:-1]) == dni[-1]
 
 
 @pytest.mark.parametrize("dni", CASOS_TEST_LETRA_PROHIBIDA)
