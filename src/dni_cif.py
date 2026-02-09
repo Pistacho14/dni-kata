@@ -6,8 +6,8 @@ class Dni:
 
     def __init__(self):
         self.dni = ""
-        self.numeroDni = ""
-        self.letraDni = ""
+        self.parteNumericaDni = ""
+        self.parteAlfabeticaDni = ""
         self.numeroSano = False
         self.letraSana = False
 
@@ -17,17 +17,17 @@ class Dni:
     def setDni(self, dni):
         self.dni = dni
 
-    def getNumeroDni(self):
-        return self.numeroDni
+    def getParteNumericaDni(self):
+        return self.parteNumericaDni
 
-    def setNumeroDni(self, numeroDni):
-        self.numeroDni = numeroDni
+    def setParteNumericaDni(self, parteNumericaDni):
+        self.parteNumericaDni = parteNumericaDni
 
-    def getLetraDni(self):
-        return self.letraDni
+    def getParteAlfabeticaDni(self):
+        return self.parteAlfabeticaDni
 
-    def setLetraDni(self, letraDni):
-        self.letraDni = letraDni
+    def setLetraDni(self, parteAlfabeticaDni):
+        self.parteAlfabeticaDni = parteAlfabeticaDni
 
     def getNumeroSano(self):
         return self.numeroSano
@@ -42,22 +42,25 @@ class Dni:
         self.letraSana = letraSana
     
     def _separarDni(self):
-        Dni.setNumeroDni(self, Dni.getDni(self)[:-1])
+        Dni.setParteNumericaDni(self, Dni.getDni(self)[:-1])
         Dni.setLetraDni(self, Dni.getDni(self)[-1])
 
-    def _checkLetra(self):
+    def checkLetra(self):
         Dni._separarDni(self)
-        return TablaAsignacion.calcularLetra(TablaAsignacion(), Dni.getNumeroDni(self)) == Dni.getLetraDni(self)
+        return Dni._sanearNumero(self) and TablaAsignacion.calcularLetra(TablaAsignacion(), Dni.getParteNumericaDni(self)) == Dni.getParteAlfabeticaDni(self)
 
-    def _checkLongitud(self):
-        return len(Dni.getNumeroDni(self)) == Dni.LONGITUD_NUMEROS_DNI
+    def checkLongitud(self):
+        return len(Dni.getParteNumericaDni(self)) == Dni.LONGITUD_NUMEROS_DNI
 
     def checkCIF(self):
-        return Dni._sanearNumero(self) and Dni._checkLetra(self) and Dni._checkLongitud(self)
+        return Dni._sanearNumero(self) and Dni.checkLetra(self) and Dni.checkLongitud(self)
     
     def checkDni(self):
-        return Dni._sanearNumero(self) and Dni._checkLetra(self) and Dni._checkLongitud(self)
+        return Dni._sanearNumero(self) and Dni.checkLetra(self) and Dni.checkLongitud(self)
     
     def _sanearNumero(self):
         Dni._separarDni(self)
-        return Dni.getNumeroDni(self).isnumeric()
+        return Dni.getParteNumericaDni(self).isnumeric()
+
+    def obtenerLetra(self):
+        return str(Dni.getParteAlfabeticaDni(self)) if Dni.checkDni(self) else None
