@@ -26,7 +26,7 @@ class Dni:
     def getParteAlfabeticaDni(self):
         return self.parteAlfabeticaDni
 
-    def setLetraDni(self, parteAlfabeticaDni):
+    def setparteAlfabeticaDni(self, parteAlfabeticaDni):
         self.parteAlfabeticaDni = parteAlfabeticaDni
 
     def getNumeroSano(self):
@@ -43,7 +43,7 @@ class Dni:
     
     def _separarDni(self):
         Dni.setParteNumericaDni(self, Dni.getDni(self)[:-1])
-        Dni.setLetraDni(self, Dni.getDni(self)[-1])
+        Dni.setparteAlfabeticaDni(self, Dni.getDni(self)[-1])
 
     def checkLetra(self):
         Dni._separarDni(self)
