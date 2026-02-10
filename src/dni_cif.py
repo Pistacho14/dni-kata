@@ -64,3 +64,6 @@ class Dni:
 
     def obtenerLetra(self):
         return str(Dni.getParteAlfabeticaDni(self)) if Dni.checkDni(self) else None
+    
+    def __repr__(self):
+        return Dni.getDni(self)
