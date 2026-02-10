@@ -46,7 +46,6 @@ class Dni:
         Dni.setParteAlfabeticaDni(self, Dni.getDni(self)[-1])
 
     def checkLetra(self):
-        Dni._separarDni(self)
         return Dni._sanearNumero(self) and TablaAsignacion.calcularLetra(
             TablaAsignacion(), Dni.getParteNumericaDni(self)
         ) == Dni.getParteAlfabeticaDni(self)
