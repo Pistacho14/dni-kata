@@ -67,6 +67,7 @@ def test_obtener_letra_sin_numero_sano(dni):
 
 def test_parte_alfabetica_dni(dni):
     dni.setDni("12345678Z")
+    dni.checkDni()
     assert dni.getParteAlfabeticaDni() == "Z"
 
 def test_parte_numerica_dni(dni):
