@@ -42,33 +42,33 @@ class Dni:
         self.letraSana = letraSana
 
     def _separarDni(self):
-        Dni.setParteNumericaDni(self, Dni.getDni(self)[:-1])
-        Dni.setParteAlfabeticaDni(self, Dni.getDni(self)[-1])
+        self.setParteNumericaDni(self.getDni()[:-1])
+        self.setParteAlfabeticaDni(self.getDni()[-1])
 
     def checkLetra(self):
-        return Dni._sanearNumero(self) and TablaAsignacion.calcularLetra(
-            TablaAsignacion(), Dni.getParteNumericaDni(self)
-        ) == Dni.getParteAlfabeticaDni(self)
+        return self._sanearNumero() and TablaAsignacion.calcularLetra(
+            TablaAsignacion(), self.getParteNumericaDni()
+        ) == self.getParteAlfabeticaDni()
 
     def checkLongitud(self):
-        return len(Dni.getParteNumericaDni(self)) == Dni.LONGITUD_NUMEROS_DNI
+        return len(self.getParteNumericaDni()) == self.LONGITUD_NUMEROS_DNI
 
     def checkCIF(self):
         return (
-            Dni._sanearNumero(self) and Dni.checkLetra(self) and Dni.checkLongitud(self)
+            self._sanearNumero() and self.checkLetra() and self.checkLongitud()
         )
 
     def checkDni(self):
         return (
-            Dni._sanearNumero(self) and Dni.checkLetra(self) and Dni.checkLongitud(self)
+            self._sanearNumero() and self.checkLetra() and self.checkLongitud()
         )
 
     def _sanearNumero(self):
-        Dni._separarDni(self)
-        return Dni.getParteNumericaDni(self).isnumeric()
+        self._separarDni()
+        return self.getParteNumericaDni().isnumeric()
 
     def obtenerLetra(self):
-        return str(Dni.getParteAlfabeticaDni(self)) if Dni.checkDni(self) else None
+        return str(self.getParteAlfabeticaDni()) if self.checkDni() else None
 
     def __repr__(self):
-        return Dni.getDni(self)
+        return ''.join(self.getDni())
